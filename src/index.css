@@ -1,0 +1,14 @@
+/*!*noinspection ALL*!*/
+@tailwind base;
+/*noinspection ALL*/
+@tailwind components;
+/*noinspection ALL*/
+@tailwind utilities;
+
+:root {
+    font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
+}
+
+a {
+    text-decoration: inherit;
+}
