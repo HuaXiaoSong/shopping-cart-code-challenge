@@ -1,9 +1,14 @@
 import React from "react";
 import "./App.css";
-import { Link, Outlet, Route, Routes } from "react-router-dom";
+import { Link, Navigate, Outlet, Route, Routes } from "react-router-dom";
 import ProductTiles from "./pages/Product/ProductTiles";
 import Header from "./components/Header/Header";
+import { ProductManagement } from "./pages/Admin/Product/ProductManagement";
+import AdminHeader from "./components/Header/AdminHeader";
 import CheckoutForm from "./pages/Product/Checkout";
+import AdminLogin, { ADMIN_AUTHENTICATED_ROLE } from "./pages/Login/AdminLogin";
+import { AdminSideNav } from "./components/AdminSideNav";
+import { OrderManagement } from "./pages/Admin/Order/OrderManagement";
 import Login from "./pages/Login/Login";
 
 function App() {
@@ -39,6 +44,34 @@ function App() {
             />
             <Route path="*" element={<NoMatch />} />
           </Route>
+          <Route
+            path="/admin/login"
+            element={
+              <React.Suspense fallback={<>...</>}>
+                <AdminLogin />
+              </React.Suspense>
+            }
+          />
+          <Route path="/admin" element={<AdminLayout />}>
+            <Route index element={<ProductManagement />} />
+            <Route
+              path="products"
+              element={
+                <React.Suspense fallback={<>...</>}>
+                  <ProductManagement />
+                </React.Suspense>
+              }
+            />
+            <Route
+              path="orders"
+              element={
+                <React.Suspense fallback={<>...</>}>
+                  <OrderManagement />
+                </React.Suspense>
+              }
+            />
+            <Route path="*" element={<NoMatch />} />
+          </Route>
         </Routes>
       </div>
     </>
@@ -52,6 +85,32 @@ function Layout() {
     <div>
       <Header />
       <Outlet />
+    </div>
+  );
+}
+
+function AdminLayout() {
+  if (localStorage.getItem(ADMIN_AUTHENTICATED_ROLE) !== "Admin") {
+    return <Navigate to={"/admin/login"} replace />;
+  }
+
+  return (
+    <div>
+      <AdminHeader />
+      <div className="flex">
+        <AdminSideNav />
+        <div className="flex-grow">
+          <Outlet />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function Home() {
+  return (
+    <div>
+      <h2>Home</h2>
     </div>
   );
 }
