@@ -3,12 +3,22 @@ import "./App.css";
 import { Link, Outlet, Route, Routes } from "react-router-dom";
 import ProductTiles from "./pages/Product/ProductTiles";
 import Header from "./components/Header/Header";
+import CheckoutForm from "./pages/Product/Checkout";
+import Login from "./pages/Login/Login";
 
 function App() {
   return (
     <>
       <div className="App">
         <Routes>
+          <Route
+            path="/login"
+            element={
+              <React.Suspense fallback={<>...</>}>
+                <Login />
+              </React.Suspense>
+            }
+          />
           <Route path="/" element={<Layout />}>
             <Route index element={<ProductTiles />} />
             <Route
@@ -16,6 +26,14 @@ function App() {
               element={
                 <React.Suspense fallback={<>...</>}>
                   <ProductTiles />
+                </React.Suspense>
+              }
+            />
+            <Route
+              path="checkout"
+              element={
+                <React.Suspense fallback={<>...</>}>
+                  <CheckoutForm />
                 </React.Suspense>
               }
             />

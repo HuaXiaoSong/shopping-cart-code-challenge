@@ -1,12 +1,17 @@
-import { Product } from "../../interfaces/Product";
+import { Product } from "../../interfaces/Product"
+import { addProductToCart } from "../Cart/cartSlice"
+import { useAppDispatch } from "../../app/hooks"
 
 interface Props {
-  product: Product;
+  product: Product
 }
 
 const ProductItem = (props: Props) => {
-  const { product } = props;
-  const handleAddProduct = () => {};
+  const { product } = props
+  const dispatch = useAppDispatch()
+  const handleAddProduct = () => {
+    dispatch(addProductToCart({ product, count: 1 }))
+  }
   return (
     <>
       <div className="flex flex-col" key={product.id}>
@@ -50,7 +55,7 @@ const ProductItem = (props: Props) => {
         </div>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default ProductItem;
+export default ProductItem
