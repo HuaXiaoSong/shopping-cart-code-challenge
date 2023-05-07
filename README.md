@@ -1,4 +1,14 @@
-Describe in words what unit tests you would implement to check the functionality of the authentication service.
+# How to run
+
+- Install dependencies with yarn install (check https://classic.yarnpkg.com/lang/en/docs/install/#mac-stable for yarn
+  install )
+  ```yarn install```
+- Run the project
+  ```yarn dev```
+
+# Unit test
+
+## Describe in words what unit tests you would implement to check the functionality of the authentication service.
 
 - Test user login:
 
