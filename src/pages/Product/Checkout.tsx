@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import CartDetailedItem from "../Cart/CartDetailedItem";
 import { useSelector } from "react-redux";
@@ -7,30 +7,17 @@ import { Order } from "../../interfaces/Order";
 import { useAppDispatch } from "../../app/hooks";
 import { saveOrder } from "../../mock/cart";
 import { AUTHENTICATED_USER } from "../Login/Login";
+import { CheckoutForm, CheckoutInfo } from "./CheckoutForm";
 
-function CheckoutForm() {
+function Checkout() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const { open, cartItems, totalAmount, totalProductCount } =
-    useSelector(selectCartState);
+  const { cartItems, totalAmount } = useSelector(selectCartState);
   const total = `$${totalAmount.toFixed(2)}`;
-  const username = "customer1"; //TODO get from login state
-  const handleSubmit = async (e: any) => {
-    e.preventDefault();
-
-    // Reset form fields
-    setFirstName("");
-    setLastName("");
-    setEmail("");
-
+  const handleSubmit = async (info: CheckoutInfo) => {
     const order: Order = {
+      ...info,
       username: localStorage.getItem(AUTHENTICATED_USER) ?? "",
-      firstName,
-      lastName,
-      email,
     };
 
     await saveOrder(order);
@@ -74,64 +61,10 @@ function CheckoutForm() {
       </div>
       <div className="col-span-6">
         <h2 className="text-lg font-bold mb-4">Checkout</h2>
-        <form onSubmit={handleSubmit}>
-          <div className="mb-4">
-            <label
-              htmlFor="firstName"
-              className="block text-gray-700 font-bold mb-2"
-            >
-              First Name
-            </label>
-            <input
-              type="text"
-              id="firstName"
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              placeholder="First Name"
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
-              required
-            />
-          </div>
-          <div className="mb-4">
-            <label htmlFor="lastName" className="block text-gray-700 font-bold mb-2">
-              Last Name
-            </label>
-            <input
-              type="text"
-              id="lastName"
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              placeholder="Last Name"
-              value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
-              required
-            />
-          </div>
-          <div className="mb-4">
-            <label htmlFor="email" className="block text-gray-700 font-bold mb-2">
-              Email
-            </label>
-            <input
-              type="email"
-              id="email"
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              placeholder="Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-          </div>
-          <div className="flex justify-end">
-            <button
-              type="submit"
-              className="bg-red-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-            >
-              Checkout
-            </button>
-          </div>
-        </form>
+        <CheckoutForm submitForm={handleSubmit} />
       </div>
     </div>
   );
 }
 
-export default CheckoutForm;
+export default Checkout;

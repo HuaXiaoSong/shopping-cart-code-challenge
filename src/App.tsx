@@ -5,7 +5,7 @@ import ProductTiles from "./pages/Product/ProductTiles";
 import Header from "./components/Header/Header";
 import { ProductManagement } from "./pages/Admin/Product/ProductManagement";
 import AdminHeader from "./components/Header/AdminHeader";
-import CheckoutForm from "./pages/Product/Checkout";
+import Checkout from "./pages/Product/Checkout";
 import AdminLogin, { ADMIN_AUTHENTICATED_ROLE } from "./pages/Login/AdminLogin";
 import { AdminSideNav } from "./components/AdminSideNav";
 import { OrderManagement } from "./pages/Admin/Order/OrderManagement";
@@ -38,7 +38,7 @@ function App() {
               path="checkout"
               element={
                 <React.Suspense fallback={<>...</>}>
-                  <CheckoutForm />
+                  <Checkout />
                 </React.Suspense>
               }
             />
