@@ -3,8 +3,19 @@
 - Install dependencies with yarn install (check https://classic.yarnpkg.com/lang/en/docs/install/#mac-stable for yarn
   install )
   ```yarn install```
-- Run the project
-  ```yarn dev```
+- Run the project (use port 3000)
+  ```yarn dev --port 3000```
+- Page links
+  http://localhost:3000/products - customer products
+  http://localhost:3000/checkout - customer checkout
+  http://localhost:3000/login - customer login
+  http://localhost:3000/admin/login - admin login
+- user credential for customer:
+  **username**: "customer1",
+  **password**: "password1",
+- user credential for admin:
+  **username**: "admin",
+  **password**: "admin",
 
 # Unit test
 
